@@ -5,11 +5,81 @@
     background-size: 100%;
 }
 
-h1, h2 {
+span, #ct {
     color: white;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin-top: 1em;
 }
 
-#add-user{
-    float: right;
+#card-1 {
+    background-color: gray;
+    padding-bottom: .3em;
+}
+
+#card-2 {
+    background-color: gray;
+    padding: 2em;
+}
+
+h1 {
+    font-family: 'Bitter', serif;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    font-size: 4em;
+}
+
+h2 {
+    font-family: 'Bitter', serif;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2em;
+}
+
+h3 {
+    font-family: 'Merriweather', serif;
+    font-size: 3em;
+    font-weight: 600;
+    color: white;
+    float: left;
+    padding-bottom: .1em;
+}
+
+h4 {
+    font-family: 'Merriweather', serif;
+    color: rgb(43, 40, 209);
+    font-size: 1em;
+    font-weight: 600;
+    padding-bottom: .2em;
+}
+
+td {
+    font-weight: 600;
+}
+
+th {
+    font-family: 'Merriweather', serif;
+    color: rgb(43, 40, 209);
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.card {
+    margin-bottom: 2em;
+}
+
+.btn, .btn-default, .btn-dark {
+   background-color: rgb(43, 40, 209);
+   float: right;
+   margin-bottom: 2em;
+}
+
+
+@media screen and (max-width: 770px) {
+    .jumbotron {
+       background-size: auto;
+    }
 }
