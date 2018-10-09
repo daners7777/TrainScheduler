@@ -25,14 +25,14 @@
 
 </head>
 
-<body>
+<body onload="startTime()">
 
   <div class="container">
     <!-- Jumbotron -->
     <div class="jumbotron">
       <h1 class="text-center">I Choo-Choo-Choose You</h1>
       <h2>Find The Train You Need</h2>
-      <span id='ct'></span>
+      <span id='clock'></span>
 
     </div>
 
@@ -80,7 +80,7 @@
 
             <div class="form-group row">
               <label for="time-name" for="time-input">
-                <h4>First Train Time (HH:mm - Military Time)</h4>
+                <h4>First Train Time (HH:MM - Military Time)</h4>
               </label>
               <input class="form-control" id="time-input" type="number">
             </div>
@@ -112,23 +112,25 @@
     crossorigin="anonymous"></script>
 
   <script type="text/javascript">
-      function display_c() {
-        var refresh = 1000; // Refresh rate in milli seconds
-        mytime = setTimeout('display_ct()', refresh)
+      function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('clock').innerHTML =
+          h + ":" + m + ":" + s;
+        var t = setTimeout(startTime, 500);
       }
-
-    function display_ct() {
-      var x = new Date()
-      document.getElementById('ct').innerHTML = x;
-      display_c();
+    function checkTime(i) {
+      if (i < 10) { i = "0" + i };
+      return i;
     }
-
+    
   </script>
+
   </head>
-
-  <body onload=display_ct();>
-    <span id='ct'></span>
-
-  </body>
+</body>
 
 </html>

@@ -16,15 +16,11 @@ $(document).ready(function () {
   //database service reference
   var dataRef = firebase.database();
 
-
-
-
-
+  //On click event to add train info
   $("#add-train").on("click", function (event) {
     event.preventDefault();
 
-  
-
+    //Store train info
     train = $("#train-input").val().trim();
     destination = $("#destination-input").val().trim();
     time = $("#time-input").val().trim();
@@ -39,16 +35,12 @@ $(document).ready(function () {
     });
   });
 
-
-
+  //Load initialization and Firebase watcher
   dataRef.ref().on("child_added", function (childSnapshot) {
-    console.log(childSnapshot);
     var newTrain = childSnapshot.val().train;
     var nextDestination = childSnapshot.val().destination;
     var nextTime = childSnapshot.val().time;
     var updatedFrequency = childSnapshot.val().frequency;
-
-
 
     // First Time (pushed back 1 year to make sure it comes before current time)
     var firstTimeConverted = moment(nextTime, "HH:mm").subtract(1, "years");
@@ -63,31 +55,22 @@ $(document).ready(function () {
     //Next arrival of train
     var trainArrival = moment(nextTrain).format("HH:mm");
 
-  
-
     //Populate screen
     $("#current-train-list").append(
       "<tr><td>" + newTrain +
       "</td><td>" + nextDestination +
       "</td><td>" + updatedFrequency +
       "</td><td>" + trainArrival +
-      "</td><td>" + tMinutesTillTrain + 
-      "<td><button class='btn btn-default btn-dark delete-train'key='"+childSnapshot.key+"'  id='delete-train'>X</button></td>" +
+      "</td><td>" + tMinutesTillTrain +
+      "<td><button class='btn btn-default btn-dark delete-train'key='" + childSnapshot.key + "'  id='delete-train'>X</button></td>" +
       "</td></tr>");
 
-      $(".delete-train").on("click", function (event) {
-        var key = $(this).attr("key");
-        dataRef.ref().equalTo(key).limitToFirst(1).on("value", function (snapshot) {
-        console.log(snapshot);
-  
-         });
-  
-      })
-      
-
-   
-
-      
+    //Delete rows
+    $(".delete-train").on("click", function (event) {
+      keyref = $(this).attr("key");
+      dataRef.ref().child(keyref).remove();
+      window.location.reload();
+    });
 
     //Field input clear
     $("#train-input, #destination-input, #time-input, #frequency-input").val("");
@@ -96,8 +79,5 @@ $(document).ready(function () {
     //Error logging
   }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
-
   });
-
-  
 });
